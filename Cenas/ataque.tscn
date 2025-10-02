@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://ds25nhn3m2ynk"]
+
+[ext_resource type="Texture2D" uid="uid://b3ddnvtejnkdo" path="res://Sprites/Extras/Hitbox.png" id="1_58s1w"]
+[ext_resource type="Script" uid="uid://xhbaw4g5du35" path="res://Scripts/ataque.gd" id="1_icafq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icafq"]
+size = Vector2(49, 78)
+
+[sub_resource type="Animation" id="Animation_icafq"]
+resource_name = "Ataque"
+length = 0.60001004
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_58s1w"), ExtResource("1_58s1w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.09803922), Color(1, 1, 1, 1), Color(0.15945333, 0.14825839, 0.14923695, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox Scan:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0jep4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_58s1w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox Scan:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ybcng"]
+_data = {
+&"Ataque": SubResource("Animation_icafq"),
+&"RESET": SubResource("Animation_0jep4")
+}
+
+[node name="Ataque" type="Node2D"]
+z_index = 3
+script = ExtResource("1_icafq")
+
+[node name="Hitbox Sprite" type="Sprite2D" parent="."]
+z_index = 4
+position = Vector2(65.99999, 0)
+scale = Vector2(0.61999995, 0.61999995)
+texture = ExtResource("1_58s1w")
+
+[node name="Hitbox Scan" type="Area2D" parent="."]
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Hitbox Shape" type="CollisionShape2D" parent="Hitbox Scan"]
+position = Vector2(81, 0)
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_icafq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ybcng")
+}
+
+[connection signal="body_entered" from="Hitbox Scan" to="." method="_on_hitbox_body_entered"]

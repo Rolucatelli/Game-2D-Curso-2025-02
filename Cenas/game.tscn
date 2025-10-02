@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddtnlv4l85j3s"]
+
+[ext_resource type="PackedScene" uid="uid://dfxknia2wnfj3" path="res://Cenas/jogador.tscn" id="1_csek2"]
+[ext_resource type="PackedScene" uid="uid://vvh4bil77k8p" path="res://Cenas/mapa.tscn" id="1_fd8wr"]
+[ext_resource type="PackedScene" uid="uid://dxasbcfpqftqc" path="res://Cenas/spawn_area_inimigo.tscn" id="3_pn5db"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Mapa" parent="." instance=ExtResource("1_fd8wr")]
+
+[node name="Jogador" parent="." instance=ExtResource("1_csek2")]
+position = Vector2(983, 416)
+
+[node name="Camera2D" type="Camera2D" parent="Jogador"]
+zoom = Vector2(0.495, 0.495)
+limit_left = 6
+limit_top = -156
+limit_right = 2552
+limit_bottom = 1656
+position_smoothing_enabled = true
+
+[node name="Spawnpoint Inimigos" parent="." instance=ExtResource("3_pn5db")]
+position = Vector2(497, 209)
+max_amount = 10
