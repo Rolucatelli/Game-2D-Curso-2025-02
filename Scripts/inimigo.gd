@@ -4,10 +4,18 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ataque: Node2D = $Ataque
+@onready var health_bar: ProgressBar = $HealthBar
+
+@export var carne_scene: PackedScene = preload("res://Cenas/carne.tscn")
+@export var dinheiro_scene: PackedScene = preload("res://Cenas/dinheiro.tscn")
 
 @export var alvo: Node2D = null
 @export var SPEED := 150.0
-@export var vida := 5.0
+@export var vida := 5.0:
+	set(value):
+		vida = clamp(value, 0, vida_maxima)
+		health_bar.value = vida
+@export var vida_maxima := 5.0
 @export var dano := 3.0
 @export var alcance_ataque := 100.0
 @export var follow_range := 80.0
@@ -24,6 +32,8 @@ var offset : Vector2
 func _ready() -> void:
 	ataque.monitoring = false
 	animated_sprite_2d.animation_finished.connect(_on_animation_finished)
+	health_bar.value = vida
+	health_bar.max_value = vida_maxima
 	if not is_instance_valid(alvo):
 		alvo = get_tree().get_first_node_in_group("jogador")
 
@@ -47,7 +57,6 @@ func _physics_process(delta: float) -> void:
 	follow_time -= delta
 	if follow_time <= 0:
 		offset = Vector2(randf_range(-follow_range, follow_range),randf_range(-follow_range, follow_range))
-		print(offset)
 		follow_time = follow_timer
 	
 	match estado_atual:
@@ -79,6 +88,7 @@ func _physics_process(delta: float) -> void:
 		Estados.Morte:
 			
 			velocity = Vector2.ZERO
+			health_bar.visible = false
 			animated_sprite_2d.play("Morte")
 		
 	move_and_slide()
@@ -86,6 +96,15 @@ func _physics_process(delta: float) -> void:
 func _on_animation_finished() -> void:
 	var anim = animated_sprite_2d.animation
 	if anim == "Morte":
+		var chance := randf()
+		if chance <= 0.15:
+			var carne = carne_scene.instantiate()
+			get_tree().current_scene.add_child(carne)
+			carne.global_position = position
+		else:
+			var dinheiro = dinheiro_scene.instantiate()
+			get_tree().current_scene.add_child(dinheiro)
+			dinheiro.global_position = position
 		queue_free()
 	elif anim == "Ataque":
 		atacando = false

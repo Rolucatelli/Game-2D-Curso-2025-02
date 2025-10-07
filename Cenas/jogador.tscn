@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dfxknia2wnfj3"]
+[gd_scene load_steps=53 format=3 uid="uid://dfxknia2wnfj3"]
 
 [ext_resource type="Texture2D" uid="uid://cha2i2v8faith" path="res://Sprites/Player/Warrior_Blue.png" id="1_ivkba"]
 [ext_resource type="Script" uid="uid://oidlk3g0kud3" path="res://Scripts/jogador.gd" id="1_k5ljr"]
@@ -308,6 +308,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivkba"]
 size = Vector2(37, 57.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u1wjv"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfp1e"]
+bg_color = Color(0, 0.81960785, 0, 1)
+
 [node name="Jogador" type="CharacterBody2D"]
 z_index = 5
 script = ExtResource("1_k5ljr")
@@ -321,6 +327,7 @@ autoplay = "Idle"
 visible = false
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5, 3.25)
 shape = SubResource("RectangleShape2D_ivkba")
 
@@ -363,6 +370,16 @@ nome_animacao = "Morte"
 metadata/_custom_type_script = "uid://46svdw2pal65"
 
 [node name="TempoInvulneravel" type="Timer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -23.0
+offset_top = 39.0
+offset_right = 24.0
+offset_bottom = 52.0
+theme_override_styles/background = SubResource("StyleBoxFlat_u1wjv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pfp1e")
+rounded = true
+show_percentage = false
 
 [connection signal="animation_finished" from="Animacoes" to="Maquina de estados/ataque1" method="_on_animacoes_animation_finished"]
 [connection signal="animation_finished" from="Animacoes" to="Maquina de estados/ataque2" method="_on_animacoes_animation_finished"]

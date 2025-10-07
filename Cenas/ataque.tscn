@@ -9,7 +9,7 @@ size = Vector2(49, 78)
 [sub_resource type="Animation" id="Animation_icafq"]
 resource_name = "Ataque"
 length = 0.60001004
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,10 +29,10 @@ tracks/1/path = NodePath("Hitbox Sprite:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.39, 0.40003067, 0.41, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.09803922), Color(1, 1, 1, 1), Color(0.15945333, 0.14825839, 0.14923695, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.09803922), Color(1, 1, 1, 1), Color(0.15945333, 0.14825839, 0.14923695, 1), Color(1, 1, 1, 1), Color(0.15945333, 0.14825839, 0.14923695, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false

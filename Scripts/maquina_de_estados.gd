@@ -35,7 +35,7 @@ func processa_comando(evento: InputEvent) -> void:
 	var novo_estado = estado_atual.processa_comando(evento)
 	if novo_estado:
 		troca_estado(novo_estado)
-	
+
 func processa_frame(delta: float) -> void:
 	var novo_estado = estado_atual.processa_frame(delta)
 	if novo_estado:
