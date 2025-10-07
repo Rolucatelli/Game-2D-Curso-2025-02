@@ -10,10 +10,16 @@ extends CharacterBody2D
 @export var vida := 5.0
 @export var dano := 3.0
 @export var alcance_ataque := 100.0
+@export var follow_range := 80.0
+@export var follow_timer := 5.0
+
 
 enum Estados { Andando, Atacando, Morte }
 var estado_atual : Estados = Estados.Andando
 var atacando := false
+var follow_time : float = 0.0
+var offset : Vector2
+
 
 func _ready() -> void:
 	ataque.monitoring = false
@@ -38,11 +44,17 @@ func _physics_process(delta: float) -> void:
 	var distancia_alvo := global_position.distance_to(alvo.global_position)
 	ataque.visible = false
 	
+	follow_time -= delta
+	if follow_time <= 0:
+		offset = Vector2(randf_range(-follow_range, follow_range),randf_range(-follow_range, follow_range))
+		print(offset)
+		follow_time = follow_timer
+	
 	match estado_atual:
 		Estados.Andando:
 			
 			animated_sprite_2d.play("Andando")
-			velocity = (alvo.global_position - global_position).normalized() * SPEED
+			velocity = (alvo.global_position + offset - global_position).normalized() * SPEED
 			animated_sprite_2d.flip_h = alvo.global_position.x < global_position.x
 			
 			if vida <= 0:
@@ -68,6 +80,7 @@ func _physics_process(delta: float) -> void:
 			
 			velocity = Vector2.ZERO
 			animated_sprite_2d.play("Morte")
+		
 	move_and_slide()
 
 func _on_animation_finished() -> void:

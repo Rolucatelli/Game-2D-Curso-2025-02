@@ -362,6 +362,9 @@ script = ExtResource("9_shj8f")
 nome_animacao = "Morte"
 metadata/_custom_type_script = "uid://46svdw2pal65"
 
+[node name="TempoInvulneravel" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="Animacoes" to="Maquina de estados/ataque1" method="_on_animacoes_animation_finished"]
 [connection signal="animation_finished" from="Animacoes" to="Maquina de estados/ataque2" method="_on_animacoes_animation_finished"]
 [connection signal="animation_finished" from="Animacoes" to="Maquina de estados/morto" method="_on_animacoes_animation_finished"]
+[connection signal="timeout" from="TempoInvulneravel" to="Maquina de estados" method="_on_tempo_invulneravel_timeout"]

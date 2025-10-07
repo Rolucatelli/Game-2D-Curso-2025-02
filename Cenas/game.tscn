@@ -12,7 +12,6 @@
 position = Vector2(983, 416)
 
 [node name="Camera2D" type="Camera2D" parent="Jogador"]
-zoom = Vector2(0.495, 0.495)
 limit_left = 6
 limit_top = -156
 limit_right = 2552
@@ -21,4 +20,3 @@ position_smoothing_enabled = true
 
 [node name="Spawnpoint Inimigos" parent="." instance=ExtResource("3_pn5db")]
 position = Vector2(497, 209)
-max_amount = 10

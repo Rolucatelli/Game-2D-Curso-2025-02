@@ -24,10 +24,12 @@ func _process(delta: float) -> void:
 		animation_player.play("Ataque")
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body is Jogador or body is Inimigo:
+	if (body is Jogador and not body.invulneravel) or body is Inimigo:
 		if body.vida < get_parent().dano:
 			body.vida = 0
 		else:
 			body.vida -= get_parent().dano
-		print(body,":", body.vida)
+			if body is Jogador:
+				body.invulneravel = true
+			print(body,":", body.vida)
 		
