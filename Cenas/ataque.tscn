@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://b3ddnvtejnkdo" path="res://Sprites/Extras/Hitbox.png" id="1_58s1w"]
 [ext_resource type="Script" uid="uid://xhbaw4g5du35" path="res://Scripts/ataque.gd" id="1_icafq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_icafq"]
-size = Vector2(49, 78)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_icafq"]
+points = PackedVector2Array(24.000008, -40.000008, 24.000008, 41.00001, -55.000008, 0)
 
 [sub_resource type="Animation" id="Animation_icafq"]
 resource_name = "Ataque"
@@ -41,7 +41,7 @@ tracks/2/path = NodePath("Hitbox Scan:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
+"times": PackedFloat32Array(0, 0.35, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -111,7 +111,7 @@ monitorable = false
 [node name="Hitbox Shape" type="CollisionShape2D" parent="Hitbox Scan"]
 position = Vector2(81, 0)
 scale = Vector2(0.9999998, 0.9999998)
-shape = SubResource("RectangleShape2D_icafq")
+shape = SubResource("ConvexPolygonShape2D_icafq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
