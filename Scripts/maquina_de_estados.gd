@@ -17,26 +17,22 @@ func init(parent: Jogador) -> void:
 func troca_estado(novo_estado: Estado) -> void:
 	if estado_atual:
 		estado_atual.exit()
-	
 	estado_atual = novo_estado
 	novo_estado.enter()
 
-func processa_fisica(delta: float) -> void:
+func processa_frame_fisica(delta: float) -> void:
+	var novo_estado = estado_atual.processa_frame_fisica(delta)
+	if novo_estado:
+		troca_estado(novo_estado)
+
+func processa_frame(delta: float) -> void:
+	
 	if parent_m.invulneravel and parent_m.timer_invulneravel.is_stopped():
 		parent_m.timer_invulneravel.start(parent_m.tempo_invulneravel)
 		parent_m.velocity.x = parent_m.velocity.x / 2
 		parent_m.velocity.y = parent_m.velocity.y / 2
 		parent_m.modulate = Color("#ffffff", 0.5)
-	var novo_estado = estado_atual.processa_fisica(delta)
-	if novo_estado:
-		troca_estado(novo_estado)
 	
-func processa_comando(evento: InputEvent) -> void:
-	var novo_estado = estado_atual.processa_comando(evento)
-	if novo_estado:
-		troca_estado(novo_estado)
-
-func processa_frame(delta: float) -> void:
 	var novo_estado = estado_atual.processa_frame(delta)
 	if novo_estado:
 		troca_estado(novo_estado)

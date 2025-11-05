@@ -29,36 +29,21 @@ func _on_animacoes_animation_finished() -> void:
 	parent.hitbox.monitoring = true
 	parent.hitbox.visible = true
 
-func processa_comando(event: InputEvent) -> Estado:
+func processa_frame(delta: float) -> Estado:
+	if parent.vida <= 0:
+		return estado_morto
 	if not parent.atacando:
-		var h_direction := Input.get_axis("Esquerda", "Direita")
-		var v_direction := Input.get_axis("Cima", "Baixo")
-		
-		if h_direction or v_direction:
+		if Input.get_vector("Esquerda", "Direita", "Cima", "Baixo"):
 			return estado_andar
 		else:
 			return estado_idle
 	return null
 
-func processa_fisica(delta: float) -> Estado:
-	if parent.vida <= 0:
-		return estado_morto
-	
-	var h_direction := Input.get_axis("Esquerda", "Direita")
-	var v_direction := Input.get_axis("Cima", "Baixo")
+func processa_frame_fisica(delta: float) -> Estado:
 	parent.animacoes.flip_h = mouse_pos.x < parent.position.x
 	
-	if h_direction or v_direction:
-		parent.velocity = Vector2(h_direction, v_direction).normalized() * (parent.velocidade/2)
-	else:
-		parent.velocity = Vector2(0, 0)
-	
-	if not parent.atacando:
-		if h_direction or v_direction:
-			return estado_andar
-		else:
-			return estado_idle
+	parent.velocity = Input.get_vector("Esquerda", "Direita", "Cima", "Baixo").normalized() \
+	* ((parent.velocidade/2) * delta)
 	
 	parent.move_and_slide()
-	
 	return null

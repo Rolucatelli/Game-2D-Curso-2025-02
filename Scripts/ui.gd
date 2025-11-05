@@ -10,8 +10,7 @@ func _ready() -> void:
 	vida_label.text = "Vida: %d" % player.vida
 	score_label.text = "Pontuação: %d" % player.dinheiro
 
-
-func _on_valor_alterado(vida:int, dinheiro:int):
+func _on_valor_alterado(vida : int, dinheiro : int):
 	vida_label.text = "Vida: %d" % vida
 	score_label.text = "Pontuação: %d" % dinheiro
 	

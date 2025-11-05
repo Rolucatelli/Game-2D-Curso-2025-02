@@ -22,6 +22,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if visible:
 		animation_player.play("Ataque")
+	else:
+		animation_player.stop()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if (body is Jogador and not body.invulneravel) or body is Inimigo:

@@ -12,10 +12,7 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func processa_fisica(delta: float) -> Estado:
-	return null
-
-func processa_comando(evento: InputEvent) -> Estado:
+func processa_frame_fisica(delta: float) -> Estado:
 	return null
 
 func processa_frame(delta: float) -> Estado:

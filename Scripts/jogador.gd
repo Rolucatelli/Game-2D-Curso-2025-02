@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar
 
 @export
-var velocidade: float = 300.0
+var velocidade: float = 18000.0
 @export
 var vida: int = 30:
 	set(value):
@@ -37,11 +37,9 @@ func _ready() -> void:
 	health_bar.max_value = vida_maxima
 	maquina_de_estados.init(self)
 
-func _unhandled_input(event: InputEvent) -> void:
-	maquina_de_estados.processa_comando(event)
-
 func _physics_process(delta: float) -> void:
-	maquina_de_estados.processa_fisica(delta)
+	maquina_de_estados.processa_frame_fisica(delta)
+
 
 func _process(delta: float) -> void:
 	maquina_de_estados.processa_frame(delta)
