@@ -7,12 +7,9 @@ var estado_ataque1: Estado
 @export
 var estado_morto: Estado
 
-
 func enter() -> void:
 	#Executando a função padrão do estado (Comeca a animação desse nó)
 	super()
-
-
 
 func processa_comando(event: InputEvent) -> Estado:
 	var h_direction := Input.get_axis("Esquerda", "Direita")
@@ -20,7 +17,7 @@ func processa_comando(event: InputEvent) -> Estado:
 	
 	if h_direction == 0 and v_direction == 0:
 		return estado_idle
-	if Input.is_action_just_pressed("Ataque"):
+	if event.is_action_pressed("Ataque"):
 		return estado_ataque1
 	return null
 

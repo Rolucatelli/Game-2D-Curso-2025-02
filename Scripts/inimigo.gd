@@ -20,6 +20,7 @@ extends CharacterBody2D
 @export var alcance_ataque := 100.0
 @export var follow_range := 80.0
 @export var follow_timer := 5.0
+@export var chance_drop := 0.15
 
 
 enum Estados { Andando, Atacando, Morte }
@@ -97,14 +98,16 @@ func _on_animation_finished() -> void:
 	var anim = animated_sprite_2d.animation
 	if anim == "Morte":
 		var chance := randf()
-		if chance <= 0.15:
+		if chance <= chance_drop:
 			var carne = carne_scene.instantiate()
-			get_tree().current_scene.add_child(carne)
+			get_tree().current_scene.get_node("Game").add_child(carne)
 			carne.global_position = position
 		else:
 			var dinheiro = dinheiro_scene.instantiate()
-			get_tree().current_scene.add_child(dinheiro)
+			get_tree().current_scene.get_node("Game").add_child(dinheiro)
 			dinheiro.global_position = position
 		queue_free()
 	elif anim == "Ataque":
 		atacando = false
+		ataque.visible = false
+		ataque.monitoring = false

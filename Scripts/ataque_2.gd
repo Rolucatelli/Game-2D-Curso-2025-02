@@ -26,6 +26,8 @@ func exit() -> void:
 
 func _on_animacoes_animation_finished() -> void:
 	parent.atacando = false
+	parent.hitbox.monitoring = true
+	parent.hitbox.visible = true
 
 func processa_comando(event: InputEvent) -> Estado:
 	if not parent.atacando:
@@ -50,8 +52,13 @@ func processa_fisica(delta: float) -> Estado:
 		parent.velocity = Vector2(h_direction, v_direction).normalized() * (parent.velocidade/2)
 	else:
 		parent.velocity = Vector2(0, 0)
-		if not parent.atacando:
+	
+	if not parent.atacando:
+		if h_direction or v_direction:
+			return estado_andar
+		else:
 			return estado_idle
+	
 	parent.move_and_slide()
 	
 	return null
