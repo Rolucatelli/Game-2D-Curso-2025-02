@@ -29,7 +29,5 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if (body is Jogador and not body.invulneravel) or body is Inimigo:
 		body.vida -= get_parent().dano
 		if body is Jogador:
-			body.atualizar_interface.emit(body.vida, body.dinheiro)
 			body.invulneravel = true
-		print(body,":", body.vida)
 		

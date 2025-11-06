@@ -34,7 +34,6 @@ func _ready() -> void:
 	add_to_group("inimigo")
 	ataque.monitoring = false
 	
-	
 	health_bar.value = vida
 	health_bar.max_value = vida_maxima
 	
@@ -42,7 +41,6 @@ func _ready() -> void:
 		alvo = get_tree().get_first_node_in_group("jogador")
 
 func _process(delta: float) -> void:
-	print(delta)
 	ataque.visible = false
 	ataque.monitoring = false
 	follow_time -= delta
@@ -91,7 +89,7 @@ func maquina_de_estados(delta: float) -> void:
 func gerar_drop():
 	var chance := randf()
 	var drop = carne_scene.instantiate() if chance <= chance_drop else dinheiro_scene.instantiate()
-	get_tree().current_scene.get_node("Game").add_child(drop)
+	get_tree().current_scene.add_child(drop)
 	drop.global_position = position
 
 func _on_animation_finished() -> void:

@@ -12,12 +12,17 @@ var velocidade: float = 18000.0
 @export
 var vida: int = 30:
 	set(value):
+		atualizar_vida.emit(vida, clamp(value, 0, vida_maxima))
 		vida = clamp(value, 0, vida_maxima)
 		health_bar.value = vida
+		
 @export
 var vida_maxima: int = 30
 @export
-var dinheiro: int = 0
+var dinheiro: int = 0:
+	set(value):
+		atualizar_dinheiro.emit(dinheiro, value)
+		dinheiro = value
 @export
 var dano: int = 3
 @export
@@ -29,7 +34,8 @@ var ataque_combo := false
 
 var invulneravel := false
 
-signal atualizar_interface(vida, dinheiro)
+signal atualizar_vida(vida_old, vida)
+signal atualizar_dinheiro(dinheiro_old, dinheiro)
 
 func _ready() -> void:
 	add_to_group("jogador")

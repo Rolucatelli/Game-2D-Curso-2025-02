@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://b61yu6wmlhr25"]
+
+[ext_resource type="Script" uid="uid://cdtb1mngm5lo5" path="res://Scripts/ui.gd" id="1_eiugy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eiugy"]
+bg_color = Color(0.13725491, 0.13725491, 0.13725491, 0.13725491)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_eiugy")
+
+[node name="Status" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = -943.0
+offset_bottom = -530.99994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eiugy")
+
+[node name="Playtime" type="Timer" parent="Status"]
+autostart = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Status"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="UI" type="VBoxContainer" parent="Status/MarginContainer"]
+layout_mode = 2
+
+[node name="Vida" type="Label" parent="Status/MarginContainer/UI"]
+layout_mode = 2
+text = "Vida: 30"
+
+[node name="Tempo" type="Label" parent="Status/MarginContainer/UI"]
+layout_mode = 2
+text = "Tempo Decorrido: 00:00"
+
+[node name="Score" type="Label" parent="Status/MarginContainer/UI"]
+layout_mode = 2
+text = "Pontuação: 0"
+
+[connection signal="timeout" from="Status/Playtime" to="." method="_on_playtime_timeout"]

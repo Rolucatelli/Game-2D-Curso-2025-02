@@ -28,7 +28,7 @@ func spawn_enemy() -> void:
 		var spawn_pos = global_position + Vector2(rx, ry)
 		
 		var enemy = enemy_scene.instantiate()
-		get_tree().current_scene.get_node("Game").add_child(enemy)
+		get_tree().current_scene.add_child(enemy)
 		enemy.global_position = spawn_pos
 		enemy.alvo = get_tree().get_first_node_in_group("jogador")
 		if timer.is_stopped():

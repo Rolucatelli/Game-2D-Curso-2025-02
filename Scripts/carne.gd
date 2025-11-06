@@ -9,5 +9,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.vida = body.vida_maxima
 		else:
 			body.vida += valor
-		body.atualizar_interface.emit(body.vida, body.dinheiro)
 		queue_free()
